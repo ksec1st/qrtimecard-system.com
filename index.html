@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0b1020">
+<title>QR TIME CARD</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+  <header class="topbar">
+    <div><strong>QR TIME CARD</strong><span>Attendance System</span></div>
+    <nav>
+      <button class="nav active" data-page="clock">打刻</button>
+      <button class="nav" data-page="admin">管理</button>
+    </nav>
+  </header>
+
+  <main>
+    <section id="clock" class="page active">
+      <div class="clock-grid">
+        <div class="panel kiosk">
+          <div class="eyebrow">TIME CLOCK</div>
+          <h1>QRコードで<br>出退勤</h1>
+          <p class="muted">スタッフQRをカメラにかざしてください。</p>
+          <div class="scanner">
+            <video id="video" autoplay muted playsinline></video>
+            <div class="scan-frame"><i></i></div>
+            <div id="cameraHint">カメラを起動しています…</div>
+          </div>
+          <div class="actions">
+            <button id="startCamera" class="primary">📷 カメラを起動</button>
+            <button id="manualBtn" class="ghost">IDを手入力</button>
+          </div>
+          <div id="clockStatus" class="status">準備中</div>
+        </div>
+        <div class="panel now">
+          <div class="eyebrow">CURRENT TIME</div>
+          <div id="dateNow" class="date"></div>
+          <div id="timeNow" class="time">--:--:--</div>
+          <div class="divider"></div>
+          <div class="today-title">本日の状況</div>
+          <div class="statrow"><span>出勤中</span><strong id="workingCount">0</strong></div>
+          <div class="statrow"><span>打刻件数</span><strong id="punchCount">0</strong></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="admin" class="page">
+      <div class="admin-head">
+        <div><div class="eyebrow">ADMIN DASHBOARD</div><h2>勤怠管理</h2></div>
+        <div class="admin-actions">
+          <button id="exportBtn" class="ghost">CSV出力</button>
+          <button id="clearBtn" class="danger">全データ削除</button>
+        </div>
+      </div>
+      <div class="cards">
+        <div class="mini"><span>スタッフ</span><b id="staffCount">0</b></div>
+        <div class="mini"><span>今日の出勤</span><b id="todayIn">0</b></div>
+        <div class="mini"><span>現在出勤中</span><b id="todayWorking">0</b></div>
+        <div class="mini"><span>今日の打刻</span><b id="todayPunches">0</b></div>
+      </div>
+      <div class="panel">
+        <div class="table-head">
+          <h3>本日の勤怠</h3>
+          <input id="search" placeholder="名前 / IDで検索">
+        </div>
+        <div class="table-wrap">
+          <table><thead><tr><th>スタッフ</th><th>ID</th><th>出勤</th><th>退勤</th><th>状態</th></tr></thead>
+          <tbody id="attendanceBody"></tbody></table>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="table-head"><h3>スタッフ管理</h3><button id="addStaffBtn" class="primary small">＋スタッフ追加</button></div>
+        <div class="table-wrap">
+          <table><thead><tr><th>名前</th><th>ID</th><th>QR</th><th>操作</th></tr></thead>
+          <tbody id="staffBody"></tbody></table>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div id="modal" class="modal hidden">
+  <div class="modal-card">
+    <button class="close" id="closeModal">×</button>
+    <div id="modalContent"></div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
