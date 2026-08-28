@@ -256,7 +256,7 @@ function startRealtimeSync() {
           );
 
           setStatus(
-            "勤怠データを取得できません。",
+            "活動データを取得できません。",
             true
           );
 
@@ -291,7 +291,7 @@ async function punch(id) {
   if (!s) {
 
     setStatus(
-      "登録されていないスタッフIDです",
+      "登録されていないメンバーIDです",
       true
     );
 
@@ -358,7 +358,7 @@ async function punch(id) {
     console.error(e);
 
     setStatus(
-      "勤怠の保存に失敗しました。Firestoreのルールを確認してください。",
+      "DASHBOARDへの保存に失敗しました。Firestoreのルールを確認してください。",
       true
     );
 
@@ -386,7 +386,7 @@ function showResult(s, type) {
       </h2>
 
       <p>
-        ${type === "in" ? "出勤" : "退勤"}
+        ${type === "in" ? "CHECK-IN" : "CHECK-OUT"}
         を記録しました。
       </p>
 
@@ -421,7 +421,7 @@ function showResult(s, type) {
 
 
   setStatus(
-    `${s.name}さんの${type === "in" ? "出勤" : "退勤"}を記録しました`
+    `${s.name}さんの${type === "in" ? "CHECK-IN" : "CHECK-OUT"}を記録しました`
   );
 
 }
@@ -579,8 +579,8 @@ function renderAdmin() {
 
                 ${
                   last?.type === "in"
-                    ? "出勤中"
-                    : "退勤"
+                    ? "活動中"
+                    : "活動外"
                 }
 
               </span>
@@ -1277,7 +1277,7 @@ $("#clearBtn").onclick =
 
     if (
       !confirm(
-        "勤怠記録をすべて削除します。スタッフ情報は残ります。"
+        "DASHBOARDデータをすべて削除します。スタッフ情報は残ります。"
       )
     ) {
 
@@ -1322,7 +1322,7 @@ $("#clearBtn").onclick =
       console.error(e);
 
       alert(
-        "勤怠記録の削除に失敗しました。"
+        "DASHBOARDデータの削除に失敗しました。"
       );
 
     }
